@@ -2,7 +2,7 @@
 using BackEnd_SocialE.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
-namespace BackEnd_SocialE.Learning.Persistence.Contexts;
+namespace BackEnd_SocialE.Shared.Persistence.Contexts;
 
 public class AppDbContext : DbContext {
     public AppDbContext(DbContextOptions options) : base(options) { }

@@ -1,6 +1,7 @@
 ﻿using BackEnd_SocialE.Learning.Domain.Models;
 using BackEnd_SocialE.Learning.Domain.Repositories;
-using BackEnd_SocialE.Learning.Persistence.Contexts;
+using BackEnd_SocialE.Shared.Persistence.Contexts;
+using BackEnd_SocialE.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackEnd_SocialE.Learning.Persistence.Repositories;

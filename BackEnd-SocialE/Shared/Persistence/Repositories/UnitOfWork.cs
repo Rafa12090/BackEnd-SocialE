@@ -1,7 +1,7 @@
 ﻿using BackEnd_SocialE.Learning.Domain.Repositories;
-using BackEnd_SocialE.Learning.Persistence.Contexts;
+using BackEnd_SocialE.Shared.Persistence.Contexts;
 
-namespace BackEnd_SocialE.Learning.Persistence.Repositories;
+namespace BackEnd_SocialE.Shared.Persistence.Repositories;
 
 public class UnitOfWork : IUnitOfWork {
     private readonly AppDbContext _context;

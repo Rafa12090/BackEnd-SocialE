@@ -1,6 +1,6 @@
-﻿using BackEnd_SocialE.Learning.Persistence.Contexts;
+﻿using BackEnd_SocialE.Shared.Persistence.Contexts;
 
-namespace BackEnd_SocialE.Learning.Persistence.Repositories;
+namespace BackEnd_SocialE.Shared.Persistence.Repositories;
 
 public class BaseRepository {
     protected readonly AppDbContext _context;

@@ -3,6 +3,9 @@ using BackEnd_SocialE.Learning.Domain.Services;
 using BackEnd_SocialE.Learning.Mapping;
 using BackEnd_SocialE.Learning.Persistence.Repositories;
 using BackEnd_SocialE.Learning.Services;
+using BackEnd_SocialE.Security.Domain.Repositories;
+using BackEnd_SocialE.Security.Persistence.Repositories;
+using BackEnd_SocialE.Security.Services;
 using BackEnd_SocialE.Shared.Persistence.Contexts;
 using BackEnd_SocialE.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -28,15 +31,19 @@ builder.Services.AddDbContext<AppDbContext>(
 // Add lowercase routes
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-// Dependency Injection Configuration
+// Security Injection Configuration
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // AutoMapper Configuration
 builder.Services.AddAutoMapper(
     typeof(ModelToResourceProfile),
-    typeof(ResourceToModelProfile));
+    typeof(BackEnd_SocialE.Security.Mapping.ModelToResourceProfile),
+    typeof(ResourceToModelProfile),
+    typeof(BackEnd_SocialE.Security.Mapping.ResourceToModelProfile));
 
 var app = builder.Build();
 

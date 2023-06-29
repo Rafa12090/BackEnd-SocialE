@@ -1,4 +1,5 @@
 ﻿using BackEnd_SocialE.Learning.Domain.Models;
+using BackEnd_SocialE.Security.Domain.Models;
 using BackEnd_SocialE.Shared.Extensions;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ namespace BackEnd_SocialE.Shared.Persistence.Contexts;
 
 public class AppDbContext : DbContext {
     public DbSet<Event> Events { get; set; }
+    public DbSet<User> Users { get; set; }
     public AppDbContext(DbContextOptions options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -21,6 +23,15 @@ public class AppDbContext : DbContext {
         modelBuilder.Entity<Event>().Property(p => p.EndTime).IsRequired().HasMaxLength(120);
         //Añadir relaciones
         
+        
+        //Usuarios
+        // Constraints
+        modelBuilder.Entity<User>().ToTable("Users");
+        modelBuilder.Entity<User>().HasKey(p => p.Id);
+        modelBuilder.Entity<User>().Property(p => p.Id).IsRequired().ValueGeneratedOnAdd();
+        modelBuilder.Entity<User>().Property(p => p.Username).IsRequired().HasMaxLength(120);
+        modelBuilder.Entity<User>().Property(p => p.Email).IsRequired().HasMaxLength(120);
+        modelBuilder.Entity<User>().Property(p => p.Type).IsRequired().HasMaxLength(120);
         //Cambiar syntax
         modelBuilder.UseSnakeCaseNamingConvention();
     }

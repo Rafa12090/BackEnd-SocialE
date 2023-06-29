@@ -17,8 +17,11 @@ public class ErrorHandlerMiddleware
             response.ContentType = "application/json";
             switch(error) {
                 case AppException e:
-                    response.StatusCode = (int)HttpStatusCode.BadRequest; break;
-                case KeyNotFoundException e: break;
+                    response.StatusCode = (int)HttpStatusCode.BadRequest;
+                    break;
+                case KeyNotFoundException e:
+                    response.StatusCode = (int)HttpStatusCode.NotFound;
+                    break;
                 default:
                     response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     break;

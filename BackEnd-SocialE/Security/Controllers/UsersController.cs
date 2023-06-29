@@ -20,15 +20,15 @@ public class UsersController: ControllerBase {
     }
     [AllowAnonymous]
     [HttpPost("sign-in")]
-    public async Task<IActionResult> Authenticate(AuthenticateRequest request) {
-        var response = await _userService.Authenticate(request);
+    public async Task<IActionResult> Authenticate(AuthenticateRequest model) {
+        var response = await _userService.Authenticate(model);
         return Ok(response);
     }
     [AllowAnonymous]
     [HttpPost("sign-up")]
-    public async Task<IActionResult> Register(RegisterRequest request)
-    {
-        await _userService.RegisterAsync(request);return Ok(new { message = "Registration successful" });
+    public async Task<IActionResult> Register(RegisterRequest model) {
+        await _userService.RegisterAsync(model);
+        return Ok(new { message = "Registration successful" });
     }
     [HttpGet]
     public async Task<IActionResult> GetAll() {
@@ -42,5 +42,18 @@ public class UsersController: ControllerBase {
         var user = await _userService.GetByIdAsync(id);
         var resource = _mapper.Map<User, UserResource>(user);
         return Ok(resource);
+    }
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, UpdateRequest model)
+    {
+        await _userService.UpdateAsync(id, model);
+        return Ok(new { message = "User updated successfully" });
+    }
+    
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _userService.DeleteAsync(id);
+        return Ok(new { message = "User deleted successfully" });
     }
 }

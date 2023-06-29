@@ -22,11 +22,15 @@ public class JwtHandler: IJwtHandler {
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
         Console.WriteLine($"Secret Key: {key}");
         var tokenDescriptor = new SecurityTokenDescriptor {
-            Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+            Subject = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Sid, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username)
+            }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha256Signature)
+                SecurityAlgorithms.HmacSha512Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
         Console.WriteLine($"token: {token.Id}, {token.Issuer}, {token.SecurityKey?.ToString()}");
@@ -35,7 +39,7 @@ public class JwtHandler: IJwtHandler {
 
     public int? ValidateToken(string token)
     {
-        if (token == null) {return null;}
+        if (string.IsNullOrEmpty(token)) {return null;}
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
         try {
@@ -45,10 +49,10 @@ public class JwtHandler: IJwtHandler {
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero },
-                out SecurityToken validatedToken);
+                    ClockSkew = TimeSpan.Zero }
+                , out var validatedToken);
             var jwtToken = (JwtSecurityToken)validatedToken;
-            var userId = int.Parse(jwtToken.Claims.First(claim => claim.Type == "id").Value);
+            var userId = int.Parse(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Sid).Value);
             return userId;
         }
         catch (Exception e) {

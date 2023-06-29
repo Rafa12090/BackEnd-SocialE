@@ -92,7 +92,7 @@ var app = builder.Build();
 // Validation for ensuring Database Objects are created
 using (var scope = app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetService<AppDbContext>()) {
-    context.Database.EnsureCreated();//ERROR!!!!
+    context.Database.EnsureCreated();
 }
 
 // Configure the HTTP request pipeline.
@@ -111,8 +111,11 @@ app.UseCors(x => x
     .AllowAnyHeader());
 
 // Configure Error Handler Middleware
+
 app.UseMiddleware<ErrorHandlerMiddleware>();
+
 // Configure JWT Handling
+
 app.UseMiddleware<JwtMiddleware>();
 
 app.UseHttpsRedirection();

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BackEnd_SocialE.Learning.Domain.Repositories;
+using BackEnd_SocialE.Security.Authorization.Handlers.Interfaces;
 using BackEnd_SocialE.Security.Domain.Models;
 using BackEnd_SocialE.Security.Domain.Repositories;
 using BackEnd_SocialE.Security.Domain.Services.Communication;
@@ -11,17 +12,36 @@ public class UserService: IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IJwtHandler _jwtHandler;
     private readonly IMapper _mapper;
 
-    public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IMapper mapper) {
+    public UserService(IUserRepository userRepository, IUnitOfWork unitOfWork, IJwtHandler jwtHandler, IMapper mapper) {
         _userRepository = userRepository;
         _unitOfWork = unitOfWork;
+        _jwtHandler = jwtHandler;
         _mapper = mapper;
     }
 
-    public Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
+    public async Task<AuthenticateResponse> Authenticate(AuthenticateRequest model)
     {
-        throw new NotImplementedException();
+        var user = await _userRepository.FindByEmailAsync(model.Email);
+        Console.WriteLine($"Request: {model.Email}, {model.Password}");
+        Console.WriteLine($"User: {user.Id}, {user.Username}, {user.Email}, {user.Type}, {user.PasswordHash}");
+        
+        // validate
+        if (user == null || !BCryptNet.Verify(model.Password, user.PasswordHash))
+        {
+            Console.WriteLine("Authentication Error");
+            throw new AppException("El Email o la contraseña es incorreta");
+        }
+            
+        Console.WriteLine("Authentication successful. About to generate token");
+        // authentication successful
+        var response = _mapper.Map<AuthenticateResponse>(user);
+        Console.WriteLine($"Response: {response.Id}, {response.Username}, {response.Email}, {response.Type}");
+        response.Token = _jwtHandler.GenerateToken(user);
+        Console.WriteLine($"El token generado es : {response.Token}");
+        return response;
     }
 
     public async Task<IEnumerable<User>> ListAsync() {

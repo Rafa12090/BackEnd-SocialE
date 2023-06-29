@@ -22,8 +22,9 @@ public class UserRepository:BaseRepository, IUserRepository
         return await _context.Users.FindAsync(id);
     }
 
-    public async Task<User> FindByUsernameAsync(string username) {
-        return await _context.Users.SingleOrDefaultAsync(x => x.Username == username);
+    public async Task<User> FindByEmailAsync(string email)
+    {
+        return await _context.Users.SingleOrDefaultAsync(x => x.Username == email);
     }
 
     public bool ExistsByUsername(string username) {

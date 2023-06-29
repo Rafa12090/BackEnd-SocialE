@@ -14,8 +14,8 @@ public class EventRepository : BaseRepository, IEventRepository
         return await _context.Events.ToListAsync();
     }
 
-    public async Task AddAsync(Event _event) {
-        await _context.Events.AddAsync(_event);
+    public async Task AddAsync(Event @event) {
+        await _context.Events.AddAsync(@event);
     }
 
     public async Task<Event> FindByIdAsync(int id) {

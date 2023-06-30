@@ -40,8 +40,8 @@ public class EventController: ControllerBase {
     [HttpPut("{id}")]
     public async Task<IActionResult> PutAsync(int id, [FromBody] SaveEventResource resource) {
         if (!ModelState.IsValid) {return BadRequest(ModelState.GetErrorMessages());}
-        var category = _mapper.Map<SaveEventResource,Event>(resource);
-        var result = await _eventService.UpdateAsync(id, category);
+        var @event = _mapper.Map<SaveEventResource,Event>(resource);
+        var result = await _eventService.UpdateAsync(id, @event);
         if (!result.Success)
             return BadRequest(result.Message);
         var eventResource = _mapper.Map<Event,EventResource>(result.Resource);

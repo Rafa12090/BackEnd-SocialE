@@ -7,5 +7,6 @@ namespace BackEnd_SocialE.Learning.Mapping;
 public class ModelToResourceProfile: Profile {
     public ModelToResourceProfile() {
         CreateMap<Event, EventResource>();
+        CreateMap<Payment, PaymentResource>();
     }
 }

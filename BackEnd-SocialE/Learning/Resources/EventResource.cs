@@ -11,5 +11,6 @@ public class EventResource
     public string EventDate { get; set; }
     public string StartTime { get; set; }
     public string EndTime { get; set; }
+    public string Image { get; set; }
     public User Manager { get; set; }
 }

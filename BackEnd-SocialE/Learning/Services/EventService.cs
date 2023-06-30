@@ -62,6 +62,8 @@ public class EventService : IEventService
         exists.EventDate = _event.EventDate;
         exists.StartTime = _event.StartTime;
         exists.EndTime = _event.EndTime;
+        exists.ManagerId = _event.ManagerId;
+        exists.Image = _event.Image;
         try {
             _eventRepository.Update(exists);
             await _unitOfWork.CompleteAsync();

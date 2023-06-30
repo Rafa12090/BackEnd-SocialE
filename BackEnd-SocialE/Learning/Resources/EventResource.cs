@@ -1,4 +1,6 @@
-﻿namespace BackEnd_SocialE.Learning.Resources;
+﻿using BackEnd_SocialE.Security.Domain.Models;
+
+namespace BackEnd_SocialE.Learning.Resources;
 
 public class EventResource
 {
@@ -9,5 +11,5 @@ public class EventResource
     public string EventDate { get; set; }
     public string StartTime { get; set; }
     public string EndTime { get; set; }
-    //public User Manager { get; set; }
+    public User Manager { get; set; }
 }

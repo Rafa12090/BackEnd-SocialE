@@ -1,5 +1,6 @@
 ﻿using BackEnd_SocialE.Learning.Domain.Models;
 using BackEnd_SocialE.Learning.Domain.Repositories;
+using BackEnd_SocialE.Security.Domain.Models;
 using BackEnd_SocialE.Shared.Persistence.Contexts;
 using BackEnd_SocialE.Shared.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,14 @@ public class EventRepository : BaseRepository, IEventRepository
 
     public async Task<Event> FindByIdAsync(int id) {
         return await _context.Events.FindAsync(id);
+    }
+
+    public async Task<List<Event>> FindByUserIdAsync(int ManagerId)
+    {
+        return await _context.Events
+            .Where(p => p.ManagerId == ManagerId)
+            .Include(p => p.Manager)
+            .ToListAsync();
     }
 
     public void Update(Event _event) {

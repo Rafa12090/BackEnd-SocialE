@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using BackEnd_SocialE.Learning.Domain.Models;
 
 namespace BackEnd_SocialE.Security.Domain.Models;
 

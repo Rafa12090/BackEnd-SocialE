@@ -35,7 +35,7 @@ public class UserService: IUserService
             throw new AppException("El Email o la contraseña es incorreta");
         }
             
-        Console.WriteLine("Authentication successful. About to generate token");
+        Console.WriteLine("Autentificación realizada, generando token");
         // authentication successful
         var response = _mapper.Map<AuthenticateResponse>(user);
         Console.WriteLine($"Response: {response.Id}, {response.Username}, {response.Email}, {response.Type}");

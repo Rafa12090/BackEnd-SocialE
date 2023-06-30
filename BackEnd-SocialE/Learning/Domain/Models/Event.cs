@@ -1,4 +1,6 @@
-﻿namespace BackEnd_SocialE.Learning.Domain.Models;
+﻿using BackEnd_SocialE.Security.Domain.Models;
+
+namespace BackEnd_SocialE.Learning.Domain.Models;
 
 public class Event {
     /*
@@ -20,6 +22,6 @@ public class Event {
     public string StartTime { get; set; }
     public string EndTime { get; set; }
     //RELACIONES
-    //public int ManagerId { get; set; }
-    //public User Manager { get; set; }
+    public int ManagerId { get; set; }
+    public User Manager { get; set; }
 }

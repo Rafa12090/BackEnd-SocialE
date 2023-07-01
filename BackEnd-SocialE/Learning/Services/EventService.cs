@@ -24,7 +24,7 @@ public class EventService : IEventService
         return await _eventRepository.ListAsync();
     }
 
-    public async Task<List<Event>> ListByUserIdAsync(int ManagerId)
+    public async Task<IEnumerable<Event>> ListByUserIdAsync(int ManagerId)
     {
         return await _eventRepository.FindByUserIdAsync(ManagerId);
     }

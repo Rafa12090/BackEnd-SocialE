@@ -12,7 +12,9 @@ public class EventRepository : BaseRepository, IEventRepository
     public EventRepository(AppDbContext context) : base(context) { }
 
     public async Task<IEnumerable<Event>> ListAsync() {
-        return await _context.Events.ToListAsync();
+        return await _context.Events
+            .Include(p => p.Manager)
+            .ToListAsync();
     }
 
     public async Task AddAsync(Event @event) {
@@ -20,10 +22,12 @@ public class EventRepository : BaseRepository, IEventRepository
     }
 
     public async Task<Event> FindByIdAsync(int id) {
-        return await _context.Events.FindAsync(id);
+        return await _context.Events
+            .Include(p => p.Manager)
+            .FirstOrDefaultAsync(p => p.Id == id);
     }
 
-    public async Task<List<Event>> FindByUserIdAsync(int ManagerId)
+    public async Task<IEnumerable<Event>> FindByUserIdAsync(int ManagerId)
     {
         return await _context.Events
             .Where(p => p.ManagerId == ManagerId)

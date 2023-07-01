@@ -1,4 +1,5 @@
 ﻿using BackEnd_SocialE.Security.Domain.Models;
+using BackEnd_SocialE.Security.Resources;
 
 namespace BackEnd_SocialE.Learning.Resources;
 
@@ -12,5 +13,5 @@ public class EventResource
     public string StartTime { get; set; }
     public string EndTime { get; set; }
     public string Image { get; set; }
-    public User Manager { get; set; }
+    public UserResource Manager { get; set; }
 }

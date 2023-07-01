@@ -7,7 +7,7 @@ namespace BackEnd_SocialE.Learning.Domain.Services;
 public interface IEventService
 {
     Task<IEnumerable<Event>> ListAsync();
-    Task<List<Event>> ListByUserIdAsync(int ManagerId);
+    Task<IEnumerable<Event>> ListByUserIdAsync(int ManagerId);
     Task<EventResponse> SaveAsync(Event _event);
     Task<EventResponse> UpdateAsync(int id, Event _event);
     Task<EventResponse> DeleteAsync(int id);

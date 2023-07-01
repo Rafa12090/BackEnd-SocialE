@@ -24,11 +24,11 @@ public class PaymentService: IPaymentService
         return await _paymentRepository.ListAsync();
     }
 
-    public async Task<List<Payment>> ListByUserIdAsync(int UserId) {
+    public async Task<IEnumerable<Payment>> ListByUserIdAsync(int UserId) {
         return await _paymentRepository.FindByUserIdAsync(UserId);
     }
 
-    public async Task<List<Payment>> ListByEventIdAsync(int EventId) {
+    public async Task<IEnumerable<Payment>> ListByEventIdAsync(int EventId) {
         return await _paymentRepository.FindByEventIdAsync(EventId);
     }
     
